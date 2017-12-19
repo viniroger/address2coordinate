@@ -1,6 +1,6 @@
-# Bulk convert from address to coordinates (latitude/longitude)
+# Bulk convert from address to latitude/longitude
 
-Bash script "rec_coord.sh" read CSV file line by line to extract address at two formats: STREET, NUMBER and STREET crossing STREET.
+Bash script "rec_coord.sh" read CSV file line by line to extract address at two formats: STREET, NUMBER and STREET crossing STREET. An URL is mounted to use API Google Maps Geocoding and a JSON file is downloaded. This file is read by "read_json.py" python script to obtain geographical coordinates (latitude and longitude).
 
 - Put your API key from Google Maps Geocoding at "rec_coord.sh" shell script
 - Input file: places.csv (according with places_ex.csv example)
