@@ -65,14 +65,14 @@ while read line; do
 			nlines2=$(cat gmaps2.json | wc -l)
 			echo "n lines: " $nlines1 "e" $nlines2
 			# If there have been a lot of tentatives, probably ther some wrong, then separte to do later
-			if [ "$count_trouble" -ge "10" ]; then
+			if [ "$count_trouble" -ge "5" ]; then
 				coordinates=0
 				break
 			fi
 			count_trouble=$((count_trouble+1))
 		done
 		# Only find coordinates if there's a valid value to do that
-		if [ "$count_trouble" -lt "10" ]; then
+		if [ "$count_trouble" -lt "5" ]; then
 			# Read JSON files and calculate average coordinate
 			coordinates=$(python read_json.py gmaps1.json gmaps2.json)
 		fi
@@ -92,21 +92,21 @@ while read line; do
 			nlines=$(cat gmaps.json | wc -l)
 			echo "n lines: " $nlines
 			# If there have been a lot of tentatives, probably ther some wrong, then separte to do later
-			if [ "$count_trouble" -ge "10" ]; then
+			if [ "$count_trouble" -ge "5" ]; then
 				coordinates=0
 				break
 			fi
 			count_trouble=$((count_trouble+1))
 		done
 		# Only find coordinates if there's a valid value to do that
-		if [ "$count_trouble" -lt "10" ]; then
+		if [ "$count_trouble" -lt "5" ]; then
 			# Read JSON files and convert address in lat / lon - as it does not need two files, inform NA for the second
 			coordinates=$(python read_json.py gmaps.json NA)
 		fi
 	fi
 	# Print information in the output file (if OK)
 	test=$(echo "${coordinates}" | awk -F'.' '{print NF}')
-	if [ "$test" -ne "0" ]; then
+	if [ "$test" -eq "3" ]; then
 		echo $date";"$hour_ini";"$hour_fim";\"$info\";"$coordinates >> $file_out
 	else
 		echo $line >> $do_later
